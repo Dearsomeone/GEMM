@@ -1,0 +1,17 @@
+# 忽略所有子目录下的 .sln 文件（Visual Studio 解决方案文件）
+**/*.sln
+
+# 忽略所有子目录下的 .vcxproj 文件（Visual Studio C++ 项目文件）
+**/*.vcxproj
+**/*.vcxproj.filters
+**/*.vcxproj.user
+**/.vs/
+**/*.obj
+**/*.log
+**/*.recipe
+**/*.ilk
+**/*.txt
+**/*.idb
+**/*.pdb
+**/*.tlog/
+**/*.exe
