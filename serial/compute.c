@@ -1,18 +1,18 @@
 #include <math.h>
 #include "compute.h"
 
-float Jacobi(int Ni, int Nj, float* temp, float* tempOld)
+float Jacobi(int Ni, int Nj, float* T, float* TOld)
 {
-	int i, j, ij;
+	int i, j, index;
 	float residual = 0.0f;
 
 	for (j = 1; j < (Nj - 1); j++)
 	{
 		for (i = 1; i < (Ni - 1); i++)
 		{
-			ij = i + j * Ni;
-			temp[ij] = 0.25f * (tempOld[ij + 1] + tempOld[ij - 1] + tempOld[ij + Ni] + tempOld[ij - Ni]);
-			residual += (temp[ij] - tempOld[ij]) * (temp[ij] - tempOld[ij]);
+			index = i + j * Ni;
+			T[index] = 0.25f * (TOld[index + 1] + TOld[index - 1] + TOld[index + Ni] + TOld[index - Ni]);
+			residual += (T[index] - TOld[index]) * (T[index] - TOld[index]);
 		}
 	}
 

@@ -2,6 +2,6 @@
 #define COMPUTE_H
 
 
-float Jacobi(int Ni, int Nj, float* temp, float* tempOld);
+float Jacobi(int Ni, int Nj, float* T, float* TOld);
 
 #endif
