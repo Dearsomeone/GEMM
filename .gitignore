@@ -15,3 +15,11 @@
 **/*.pdb
 **/*.tlog/
 **/*.exe
+**/*.cod
+**/build/
+**/*.iobj
+**/*.ipdb
+**/x64/
+**/x86/
+**/Debug/
+**/Realse/
