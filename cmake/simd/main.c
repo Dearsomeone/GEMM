@@ -2,86 +2,78 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <math.h>
 #include "compute.h"
 
 int main(int argc, char** argv)
 {
-	int Ni = 512;
-	int Nj = 512;
-	int maxIter = 10000;
-	int gridNum = Ni * Nj;
-	int i, j, n, iter;
+	int N = 1000;
+	unsigned int size = 1000000;
 	int batchSize = 1;
-	/* float residual = 0;
-	float residual0; */
-	float* T;
-	float* TOld;
+	int i, j;
+	float* A;
+	float* B;
+	float* C;
 	float* timeData;
 	double timeCost;
+	char* endptr;
 	clock_t start, finish;
 	FILE* file;
-	char* endptr;
-
+	
 	/* 解析命令行参数 */ 
 	for (i = 1; i < argc; i++) {
-        batchSize = (int)strtol(argv[i], &endptr, 10);
-        printf("Command Line Argument %d: %d\n", i, batchSize);
-		
+		switch(i)
+		{
+			case 1:
+				N = (int)strtol(argv[i], &endptr, 10);
+				printf("Command Line Argument %d: %d\n", i, N);
+				break;
+			case 2:
+				batchSize = (int)strtol(argv[i], &endptr, 10);
+				printf("Command Line Argument %d: %d\n", i, batchSize);
+				break;
+			default:
+				printf("Warning: Ignore redundant command line arguments!");
+				break;
+		}
     }
 
+	size = N * N;
 	/* 分配内存空间 */
-	T = (float*)malloc(sizeof(float) * gridNum);
-	TOld = (float*)malloc(sizeof(float) * gridNum);
+	A = (float*)malloc(sizeof(float) * size);
+	B = (float*)malloc(sizeof(float) * size);
+	C = (float*)malloc(sizeof(float) * size);
 	timeData = (float*)malloc(sizeof(float) * batchSize);
 
-	if (T == NULL || TOld == NULL || timeData == NULL) {
+	if (A == NULL || B == NULL || C == NULL || timeData == NULL) {
 		printf("Memory allocation failed!\n");
 		return 1;
 	}
 
-	for (n = 0; n < batchSize; n++)
+	for (i = 0; i < batchSize; i++)
 	{
 		/* 初始化数组 */
-		memset(T, 0, gridNum);
-		memset(TOld, 0, gridNum);
-
-		/* 初始化边界条件 */
-		for (i = 0; i < Ni; i++)
+		memset(C, 0, size);
+		for (j = 0; j < size; j++)
 		{
-			T[i] = TOld[i] = 0.0f;
-			T[i + Ni * (Nj - 1)] = TOld[i + Ni * (Nj - 1)] = 100.0f;
-		}
-
-		for (j = 1; j < (Nj - 1); j++)
-		{
-			T[Ni * j] = TOld[Ni * j] = 0.0f;
-			T[Ni - 1 + Ni * j] = TOld[Ni - 1 + Ni * j] = 0.0f;
+			A[j] = sin(j);
+			B[j] = cos(j);
 		}
 
 		/* 开始计算 */
 		start = clock();
-		for (iter = 1; iter <= maxIter; iter++)
-		{
-			Jacobi(Ni, Nj, T, TOld);
-
-			float* tmp = TOld;
-			TOld = T;
-			T = tmp;
-
-			/*if (iter == 1) residual0 = residual;
-			if (iter == 1 || iter % 1000 == 0)
-			{
-				printf("%5d %14.6f\n", iter, residual / residual0);
-			}*/
-		}
+		multiply(N, A, B, C);
 		finish = clock();
 		timeCost = (double)(finish - start) / CLOCKS_PER_SEC;
-		timeData[n] = timeCost;
-		printf("\nTime to solution of the %dth test: %.1f [sec]\n", n, timeCost);
+		timeData[i] = timeCost;
+		printf("\nTime to solution of the %dth test: %.1f [sec]\n", i, timeCost);
+		/*printMatrix(N, A);
+		printMatrix(N, B);
+		printMatrix(N, C);*/
 	}
 	
 	/* 计时数据存入文件 */
-	file = fopen("output.txt", "w");
+	file = fopen("timing.txt", "w");
     if (file == NULL) {
         perror("Failed to open file");
         return 1;
@@ -92,10 +84,11 @@ int main(int argc, char** argv)
     fclose(file);
 
 	/* 释放内存 */
-	free(T);
-	free(TOld);
+	free(A);
+	free(B);
+	free(C);
 	free(timeData);
-	T = TOld = NULL;
+	A = B = C = timeData = NULL;
 
 	return 0;
 }

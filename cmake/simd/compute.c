@@ -1,21 +1,28 @@
 #include <math.h>
+#include <stdio.h>
 #include "compute.h"
 
-float Jacobi(int Ni, int Nj, float* T, float* TOld)
+void multiply(int N, float* A, float* B, float* C)
 {
-	int i, j, index;
-	float residual = 0.0f;
+	int i, j, k;
 
-	for (j = 1; j < (Nj - 1); j++)
-	{
-		for (i = 1; i < (Ni - 1); i++)
-		{
-			index = i + j * Ni;
-			T[index] = 0.25f * (TOld[index + 1] + TOld[index - 1] + TOld[index + Ni] + TOld[index - Ni]);
-			residual += (T[index] - TOld[index]) * (T[index] - TOld[index]);
-		}
-	}
+	for (i = 0; i < N; i++) {
+        for (j = 0; j < N; j++) {
+			C[i * N + j] = 0;
+            for (k = 0; k < N; k++) {
+                C[i * N + j] += A[i * N + k] * B[k * N + j];
+            }
+        }
+    }
+}
 
-	residual = (float)sqrt(residual);
-	return residual;
+void printMatrix(int N, float* matrix)
+{
+	int i, j;
+	for (i = 0; i < N; i++) {
+        for (j = 0; j < N; j++) {
+            printf("%8.2f ", matrix[i * N + j]);
+        }
+        printf("\n");
+    }
 }
