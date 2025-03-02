@@ -10,7 +10,7 @@
 **/*.log
 **/*.recipe
 **/*.ilk
-**/*.txt
+#**/*.txt
 **/*.idb
 **/*.pdb
 **/*.tlog/
