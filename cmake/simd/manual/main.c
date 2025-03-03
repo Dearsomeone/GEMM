@@ -21,7 +21,8 @@ int main(int argc, char** argv)
 	FILE* file;
 	
 	/* 解析命令行参数 */ 
-	for (i = 1; i < argc; i++) {
+	for (i = 1; i < argc; i++) 
+	{
 		switch(i)
 		{
 			case 1:
