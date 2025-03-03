@@ -21,7 +21,8 @@ int main(int argc, char** argv)
 	FILE* file;
 	
 	/* 解析命令行参数 */ 
-	for (i = 1; i < argc; i++) {
+	for (i = 1; i < argc; i++) 
+	{
 		switch(i)
 		{
 			case 1:
@@ -45,7 +46,8 @@ int main(int argc, char** argv)
 	C = (float*)malloc(sizeof(float) * size);
 	timeData = (float*)malloc(sizeof(float) * batchSize);
 
-	if (A == NULL || B == NULL || C == NULL || timeData == NULL) {
+	if (A == NULL || B == NULL || C == NULL || timeData == NULL) 
+	{
 		printf("Memory allocation failed!\n");
 		return 1;
 	}
@@ -74,11 +76,13 @@ int main(int argc, char** argv)
 	
 	/* 计时数据存入文件 */
 	file = fopen("timing.txt", "w");
-    if (file == NULL) {
+    if (file == NULL) 
+	{
         perror("Failed to open file");
         return 1;
     }
-    for (i = 0; i < batchSize; i++) {
+    for (i = 0; i < batchSize; i++) 
+	{
         fprintf(file, "%.1f\n", timeData[i]);
     }
     fclose(file);

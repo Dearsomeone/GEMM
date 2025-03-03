@@ -7,11 +7,14 @@ void multiply(int N, float* A, float* B, float* C)
 {
 	int i, j, k;
 
-	for (i = 0; i < N; i++) {
-        for (j = 0; j < N; j++) {
+	for (i = 0; i < N; i++) 
+    {
+        for (j = 0; j < N; j++) 
+        {
             /* 初始化 C[i][j] 为 0 */
             __m256 c = _mm256_setzero_ps();
-            for (k = 0; k < N; k += 8) {
+            for (k = 0; k < N; k += 8) 
+            {
                 /* 加载 A[i][k] 到 AVX2 寄存器 */
                 __m256 a = _mm256_loadu_ps(&A[i * N + k]);
                 /* 加载 B[k][j] 到 AVX2 寄存器 */
@@ -38,8 +41,10 @@ void multiply(int N, float* A, float* B, float* C)
 void printMatrix(int N, float* matrix)
 {
 	int i, j;
-	for (i = 0; i < N; i++) {
-        for (j = 0; j < N; j++) {
+	for (i = 0; i < N; i++) 
+    {
+        for (j = 0; j < N; j++) 
+        {
             printf("%8.2f ", matrix[i * N + j]);
         }
         printf("\n");
