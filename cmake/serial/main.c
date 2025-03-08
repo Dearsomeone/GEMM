@@ -64,14 +64,14 @@ int main(int argc, char** argv)
 
 		/* 开始计算 */
 		start = clock();
-		multiply(N, A, B, C);
+		multiplyNew(N, A, B, C);
 		finish = clock();
 		timeCost = (double)(finish - start) / CLOCKS_PER_SEC;
 		timeData[i] = timeCost;
 		printf("\nTime to solution of the %dth test: %.1f [sec]\n", i, timeCost);
 		/*printMatrix(N, A);
-		printMatrix(N, B);
-		printMatrix(N, C);*/
+		printMatrix(N, B);*/
+		// printMatrix(N, C);
 	}
 	
 	/* 计时数据存入文件 */
