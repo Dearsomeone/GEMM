@@ -5,7 +5,8 @@ project(simd C)
 
 # 指定gcc编译器
 set(CMAKE_C_COMPILER "/usr/bin/gcc")
-add_compile_options(-O3 -ftree-vectorize -fopt-info-vec -mavx2 -std=c90 -Wall)
+
+add_compile_options(-O3 -fopt-info-vec -march=native -Wall)
 
 # 添加源文件
 add_executable(simd main.c compute.c)
