@@ -12,6 +12,7 @@ int main(int argc, char** argv)
 	unsigned int size = 1000000;
 	int batchSize = 1;
 	int i, j;
+	int numThreads = 28;
 	float* A;
 	float* B;
 	float* C;
@@ -20,14 +21,7 @@ int main(int argc, char** argv)
 	char* endptr;
 	double start, finish;
 	FILE* file;
-
-	/* 测试omp是否开启成功 */
-	#pragma omp parallel for
-	for (int i = 0; i < 10; i++) 
-	{
-		printf("Hello World %d from thread = %d\n", i, omp_get_thread_num());
-	}
-
+	
 	/* 解析命令行参数 */ 
 	for (i = 1; i < argc; i++) 
 	{
@@ -41,11 +35,23 @@ int main(int argc, char** argv)
 				batchSize = (int)strtol(argv[i], &endptr, 10);
 				printf("Command Line Argument %d: %d\n", i, batchSize);
 				break;
+			case 3:
+				numThreads = (int)strtol(argv[i], &endptr, 10);
+				printf("Command Line Argument %d: %d\n", i, numThreads);
+				break;
 			default:
 				printf("Warning: Ignore redundant command line arguments!");
 				break;
 		}
     }
+
+	omp_set_num_threads(numThreads);
+	/* 测试omp是否开启成功 */
+	#pragma omp parallel for
+	for (int i = 0; i < numThreads; i++) 
+	{
+		printf("Hello World %d from thread = %d\n", i, omp_get_thread_num());
+	}
 
 	size = N * N;
 	/* 分配内存空间 */
