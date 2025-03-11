@@ -3,6 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include <math.h>
+#include <mm_malloc.h>
 #include "compute.h"
 
 int main(int argc, char** argv)
@@ -41,10 +42,10 @@ int main(int argc, char** argv)
 
 	size = N * N;
 	/* 分配内存空间 */
-	A = (float*)malloc(sizeof(float) * size);
-	B = (float*)malloc(sizeof(float) * size);
-	C = (float*)malloc(sizeof(float) * size);
-	timeData = (float*)malloc(sizeof(float) * batchSize);
+	A = (float*)_mm_malloc(sizeof(float) * size, 32);
+	B = (float*)_mm_malloc(sizeof(float) * size, 32);
+	C = (float*)_mm_malloc(sizeof(float) * size, 32);
+	timeData = (float*)_mm_malloc(sizeof(float) * batchSize, 32);
 
 	if (A == NULL || B == NULL || C == NULL || timeData == NULL) 
 	{
@@ -88,10 +89,10 @@ int main(int argc, char** argv)
     fclose(file);
 
 	/* 释放内存 */
-	free(A);
-	free(B);
-	free(C);
-	free(timeData);
+	_mm_free(A);
+	_mm_free(B);
+	_mm_free(C);
+	_mm_free(timeData);
 	A = B = C = timeData = NULL;
 
 	return 0;

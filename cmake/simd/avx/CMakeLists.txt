@@ -5,7 +5,7 @@ project(avx C)
 
 # 指定gcc编译器
 set(CMAKE_C_COMPILER "/usr/bin/gcc")
-add_compile_options(-O3 -fopt-info-vec -mavx2 -Wall)
+add_compile_options(-O0 -mavx2 -Wall)
 
 # 添加源文件
 add_executable(avx main.c compute.c)
