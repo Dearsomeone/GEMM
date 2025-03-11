@@ -10,7 +10,6 @@ int main(int argc, char** argv)
 {
 	int N = 1000;
     unsigned int size;
-    int batchSize = 1;
     int i, j;
     int rank, numProcs;
     int localRows, localSize;
@@ -40,10 +39,6 @@ int main(int argc, char** argv)
                     N = (int)strtol(argv[i], &endptr, 10);
                     printf("Command Line Argument %d: %d\n", i, N);
                     break;
-                case 2:
-                    batchSize = (int)strtol(argv[i], &endptr, 10);
-                    printf("Command Line Argument %d: %d\n", i, batchSize);
-                    break;
                 default:
                     printf("Warning: Ignore redundant command line arguments!");
                     break;
@@ -53,7 +48,6 @@ int main(int argc, char** argv)
 
     /* 广播 N 和 batchSize 到所有进程 */
     MPI_Bcast(&N, 1, MPI_INT, 0, MPI_COMM_WORLD);
-    MPI_Bcast(&batchSize, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
     size = N * N;
 
@@ -131,6 +125,7 @@ int main(int argc, char** argv)
 
     if (rank == 0)
     {
+        printf("\nTime to solution of the test: %.1f [sec]\n", timeCost);
         /* printMatrix(N, C); */
         /* 保存计时数据 */
         file = fopen("timing.txt", "a");
