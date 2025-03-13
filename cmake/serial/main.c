@@ -64,7 +64,7 @@ int main(int argc, char** argv)
 
 		/* 开始计算 */
 		start = clock();
-		multiplyNew(N, A, B, C);
+		multiply(N, A, B, C);
 		finish = clock();
 		timeCost = (double)(finish - start) / CLOCKS_PER_SEC;
 		timeData[i] = timeCost;
