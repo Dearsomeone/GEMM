@@ -2,8 +2,7 @@
 #include <stdio.h>
 #include "compute.h"
 
-/* ikj遍历，缓存命中率高 */
-void multiply(int N, float* A, float* B, float* C)
+void multiply(int N, float* restrict A, float* restrict B, float* restrict C)
 {
 	int i, j, k;
 
