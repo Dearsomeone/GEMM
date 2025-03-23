@@ -8,10 +8,9 @@ void multiply(int N, float* A, float* B, float* C, int startRow, int endRow)
 
 	for (i = startRow; i < endRow; i++) 
     {
-        for (j = 0; j < N; j++) 
+        for (k = 0; k < N; k++) 
         {
-			C[i * N + j] = 0;
-            for (k = 0; k < N; k++) 
+            for (j = 0; j < N; j++) 
             {
                 C[i * N + j] += A[i * N + k] * B[k * N + j];
             }

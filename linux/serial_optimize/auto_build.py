@@ -33,9 +33,9 @@ except subprocess.CalledProcessError as e:
     exit(1)
 
 # 移动可执行文件
-if os.path.exists("../serial"):
-    os.remove("../serial")
-shutil.move("serial", "../")
+if os.path.exists("../serial_opt"):
+    os.remove("../serial_opt")
+shutil.move("serial_opt", "../")
 # 返回上级目录
 os.chdir("..")
 

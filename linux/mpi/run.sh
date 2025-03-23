@@ -19,7 +19,7 @@ for i in $(seq 1 $N); do
     echo "Run #$i - $(date)"
     
     # 运行 MPI 命令
-    mpirun -n 28 ./mpi 3000
+    mpirun -n 12 ./mpi 3000
 done
 
 echo "All runs completed!"
