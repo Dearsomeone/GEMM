@@ -8,6 +8,7 @@ void multiply(int N, float* restrict A, float* restrict B, float* restrict C)
 	int i, j, k;
 
 	for (i = 0; i < N; i++)
+    {
         for (k = 0; k < N; k++)
         {
             __m256 ra = _mm256_set1_ps(A[i * N + k]);
@@ -23,6 +24,7 @@ void multiply(int N, float* restrict A, float* restrict B, float* restrict C)
                 C[i * N + j] += A[i * N + k] * B[k * N + j];
             }
         }
+    }
 }
 
 void printMatrix(int N, float* matrix)
