@@ -1,10 +1,10 @@
+#include "compute.h"
+#include <math.h>
+#include <mpi.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include <math.h>
-#include <mpi.h>
-#include "compute.h"
 
 int main(int argc, char** argv)
 {
@@ -25,21 +25,21 @@ int main(int argc, char** argv)
     /* 初始化 MPI */
     MPI_Init(&argc, &argv);
 
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);       /* 获取当前进程的 rank */
-    MPI_Comm_size(MPI_COMM_WORLD, &numProcs);   /* 获取总进程数 */
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank); /* 获取当前进程的 rank */
+    MPI_Comm_size(MPI_COMM_WORLD, &numProcs); /* 获取总进程数 */
     printf("Hello World from process %d of %d\n", rank, numProcs);
 
     /* 解析命令行参数（仅主进程解析）*/
     if (rank == 0) {
         for (i = 1; i < argc; i++) {
             switch (i) {
-                case 1:
-                    N = (int)strtol(argv[i], &endptr, 10);
-                    printf("Command Line Argument %d: %d\n", i, N);
-                    break;
-                default:
-                    printf("Warning: Ignore redundant command line arguments!");
-                    break;
+            case 1:
+                N = (int)strtol(argv[i], &endptr, 10);
+                printf("Command Line Argument %d: %d\n", i, N);
+                break;
+            default:
+                printf("Warning: Ignore redundant command line arguments!");
+                break;
             }
         }
     }
@@ -97,7 +97,7 @@ int main(int argc, char** argv)
         printf("Memory allocation failed for localA or localC\n");
         MPI_Abort(MPI_COMM_WORLD, 1);
     }
-    memset(localC, 0, localSize * sizeof(float));  // 初始化 localC
+    memset(localC, 0, localSize * sizeof(float)); // 初始化 localC
 
     MPI_Barrier(MPI_COMM_WORLD);
     start = MPI_Wtime();
@@ -118,8 +118,7 @@ int main(int argc, char** argv)
     /* 计算所有进程的最大时间 */
     MPI_Reduce(&timeCost, &maxTimeCost, 1, MPI_DOUBLE, MPI_MAX, 0, MPI_COMM_WORLD);
 
-    if (rank == 0)
-    {
+    if (rank == 0) {
         printf("\nTime to solution of the test: %.1f [sec]\n", timeCost);
         // printMatrix(N, C);
         /* 保存计时数据 */
