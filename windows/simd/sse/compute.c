@@ -5,9 +5,9 @@
 
 void multiply(int N, float* restrict A, float* restrict B, float* restrict C)
 {
-	int i, j, k;
+    int i, j, k;
 
-	for (i = 0; i < N; i++)
+    for (i = 0; i < N; i++)
         for (k = 0; k < N; k++)
         {
             __m128 ra = _mm_set1_ps(A[i * N + k]);
@@ -26,8 +26,8 @@ void multiply(int N, float* restrict A, float* restrict B, float* restrict C)
 
 void printMatrix(int N, float* matrix)
 {
-	int i, j;
-	for (i = 0; i < N; i++) 
+    int i, j;
+    for (i = 0; i < N; i++) 
     {
         for (j = 0; j < N; j++) 
         {
