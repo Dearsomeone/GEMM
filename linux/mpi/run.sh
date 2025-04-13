@@ -12,14 +12,14 @@ else
 fi
 
 # 设定重复执行的次数
-N=5
+N=11
 
 # 执行命令 N 次
 for i in $(seq 1 $N); do
     echo "Run #$i - $(date)"
     
     # 运行 MPI 命令
-    mpirun -n 12 ./mpi 3000
+    mpirun -n 14 ./mpi 3000
 done
 
 echo "All runs completed!"

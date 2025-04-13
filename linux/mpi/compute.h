@@ -2,7 +2,7 @@
 #define COMPUTE_H
 
 /* N * N 方阵乘法 */
-void multiply(int N, float* A, float* B, float* C, int startRow, int endRow);
+void multiply(int N, float* localA, float* B, float* localC, int localRows);
 void printMatrix(int N, float* matrix);
 
 #endif

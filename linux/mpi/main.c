@@ -106,7 +106,7 @@ int main(int argc, char** argv)
     MPI_Scatterv(A, sendcounts, displs, MPI_FLOAT, localA, localSize, MPI_FLOAT, 0, MPI_COMM_WORLD);
 
     /* 每个进程计算自己的部分 */
-    multiply(N, localA, B, localC, 0, localRows);
+    multiply(N, localA, B, localC, localRows);
 
     /* 主进程收集结果 */
     MPI_Gatherv(localC, localSize, MPI_FLOAT, C, sendcounts, displs, MPI_FLOAT, 0, MPI_COMM_WORLD);
