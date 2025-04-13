@@ -5,11 +5,12 @@
 /* ijk遍历，缓存命中率低 */
 void multiply(int N, float* A, float* B, float* C)
 {
-    for (int i = 0; i < N; i++)
+    int i, j, k;
+    for (i = 0; i < N; i++)
     {
-        for (int j = 0; j < N; j++)
+        for (j = 0; j < N; j++)
         {
-            for (int k = 0; k < N; k++)
+            for (k = 0; k < N; k++)
             {
                 C[i * N + j] += A[i * N + k] * B[k * N + j];
             }

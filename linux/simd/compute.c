@@ -4,9 +4,13 @@
 
 void multiply(int N, float* restrict A, float* restrict B, float* restrict C)
 {
-    for (int i = 0; i < N; i++) {
-        for (int k = 0; k < N; k++) {
-            for (int j = 0; j < N; j++) {
+    int i, j, k;
+    for (i = 0; i < N; i++)
+    {
+        for (k = 0; k < N; k++)
+        {
+            for (j = 0; j < N; j++)
+            {
                 C[i * N + j] += A[i * N + k] * B[k * N + j];
             }
         }
