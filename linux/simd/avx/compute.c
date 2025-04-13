@@ -14,7 +14,8 @@ void multiply(int N, float* restrict A, float* restrict B, float* restrict C)
 
             for (j = 0; j <= N - 8; j += 8) 
             {
-                _mm256_store_ps(C + i * N + j, _mm256_add_ps(_mm256_load_ps(C + i * N + j), _mm256_mul_ps(_mm256_load_ps(B + k * N + j), ra)));
+                _mm256_store_ps(C + i * N + j, _mm256_add_ps(_mm256_load_ps(C + i * N + j)
+                , _mm256_mul_ps(_mm256_load_ps(B + k * N + j), ra)));
             }
 
             for (; j < N; j++) 
